@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+      "jsx": "react",
+      "module": "commonjs",
+      "noImplicitAny": false,
+      "outDir": "./dist/",
+      "preserveConstEnums": true,
+      "removeComments": true,
+      "target": "es6",
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "skipLibCheck": true,
+      "moduleResolution": "node",
+      "noResolve": false
+    },
+    "include": [
+      "src"
+    ],
+    "exclude": [
+      "node_modules"
+    ],
+    "lib": [
+      "es5",
+      "es2015.promise"
+  ]
+}

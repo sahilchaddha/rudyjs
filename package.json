@@ -1,0 +1,50 @@
+{
+  "name": "rudy",
+  "version": "1.0.0",
+  "description": "R-U-DEAD-YET ?",
+  "preferGlobal": true,
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "node dist/main.js",
+    "startTs": "node_modules/.bin/ts-node --project ./tsconfig.json src/main.ts",
+    "build": "npm run clean && node_modules/.bin/tsc -p .",
+    "clean": "node_modules/.bin/gulp clean",
+    "lint": "node_modules/.bin/tslint --project .",
+    "test": "node_modules/.bin/mocha --recursive src/test --timeout 10000 --exit",
+    "deploy": "npm run lint && npm test && npm run build"
+  },
+  "bin": {
+    "rudy": "./dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahilchaddha/rudy.git"
+  },
+  "keywords": [
+    "rudy",
+    "js",
+    "typescript",
+    "node"
+  ],
+  "author": "Sahil Chaddha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sahilchaddha/rudy/issues"
+  },
+  "homepage": "https://github.com/sahilchaddha/rudy#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.15.1",
+    "request": "^2.85.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.0.4",
+    "@types/request": "^2.47.0",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "mocha": "^5.1.1",
+    "ts-node": "^6.0.3",
+    "tslint": "^5.10.0",
+    "typescript": "^2.8.3"
+  }
+}
