@@ -20,7 +20,7 @@ interface ILoggerParams {
     data?: any
 }
 
-enum LogLevel {
+export enum LogLevel {
     INFO = "INFO",
     VERBOSE = "VERBOSE",
     DEBUG = "DEBUG",
@@ -30,7 +30,7 @@ enum LogLevel {
 class Logger {
     private logLevel: LogLevel
 
-    constructor(className: string) {
+    constructor() {
         this.logLevel = LogLevel.INFO
     }
 
@@ -70,4 +70,6 @@ class Logger {
     }
 }
 
-export default Logger
+const logger: Logger = new Logger()
+
+export default logger

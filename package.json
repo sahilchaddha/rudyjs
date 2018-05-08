@@ -5,8 +5,8 @@
   "preferGlobal": true,
   "main": "dist/main.js",
   "scripts": {
-    "start": "node dist/main.js",
-    "startTs": "node_modules/.bin/ts-node --project ./tsconfig.json src/main.ts",
+    "start": "node dist/cli.js",
+    "startTs": "node_modules/.bin/ts-node --project ./tsconfig.json src/cli.ts",
     "build": "npm run clean && node_modules/.bin/tsc -p .",
     "clean": "node_modules/.bin/gulp clean",
     "lint": "node_modules/.bin/tslint --project .",
@@ -14,7 +14,7 @@
     "deploy": "npm run lint && npm test && npm run build"
   },
   "bin": {
-    "rudy": "./dist/main.js"
+    "rudy": "./dist/cli.js"
   },
   "repository": {
     "type": "git",

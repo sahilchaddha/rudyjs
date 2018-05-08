@@ -6,10 +6,6 @@
 //  Copyright © 2018 Tribe-CMS.tv. All rights reserved.
 //
 
-import * as program from "commander"
+import * as Rudy from "./service/rudy.service"
 
-program
-.version("1.0.0", "-v, --version")
-.parse(process.argv)
-
-program.help()
+export default Rudy
