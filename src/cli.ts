@@ -11,5 +11,5 @@ import Rudy from "./main"
 
 program
 .version("1.0.0", "-v, --version")
-.option("-s, --setup_mode [mode]", "Which setup mode to use")
+.option("-h, --host", "Host to attack")
 .parse(process.argv)
