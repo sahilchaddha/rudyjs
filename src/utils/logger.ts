@@ -10,9 +10,8 @@ import chalk from "chalk"
 /* tslint:disable no-console */
 
 const error = chalk.red
-const debug = chalk.yellow
-const verbose = chalk.blue
-const info = chalk.green
+const verbose = chalk.yellow
+const info = chalk.blue
 
 interface ILoggerParams {
     message?: string
@@ -23,7 +22,6 @@ interface ILoggerParams {
 export enum LogLevel {
     INFO = "INFO",
     VERBOSE = "VERBOSE",
-    DEBUG = "DEBUG",
     ERROR = "ERROR",
 }
 
@@ -36,19 +34,15 @@ class Logger {
 
     public setLogLevel(level: LogLevel) {
         this.logLevel = level
+        this.verbose({message: "Logger set to Verbose", category: "Logger"})
     }
 
     public error(params: ILoggerParams) {
         this.logMessage(error(this.getLogMessage(params, LogLevel.ERROR)), params)
     }
     public verbose(params: ILoggerParams) {
-        if (this.logLevel === LogLevel.VERBOSE || this.logLevel === LogLevel.DEBUG) {
+        if (this.logLevel === LogLevel.VERBOSE) {
             this.logMessage(verbose(this.getLogMessage(params, LogLevel.VERBOSE)), params)
-        }
-    }
-    public debug(params: ILoggerParams) {
-        if (this.logLevel === LogLevel.DEBUG) {
-            this.logMessage(debug(this.getLogMessage(params, LogLevel.DEBUG)), params)
         }
     }
 
