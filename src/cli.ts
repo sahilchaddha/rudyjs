@@ -8,7 +8,12 @@
 
 import * as program from "commander"
 import Rudy from "./main"
+import ASCIIBanner from "./utils/ascii"
 
+// Shows ASCII banner
+ASCIIBanner.showInfo()
+
+// Parse Arguments
 program
 .version("1.0.0", "-v, --version")
 .option("-h, --host", "Host to attack")

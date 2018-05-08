@@ -6,6 +6,11 @@
 //  Copyright © 2018 Tribe-CMS.tv. All rights reserved.
 //
 
+interface IRudyConfig {
+    host: string
+    maxConnections: number
+}
+
 class RudyService {
 
 }
