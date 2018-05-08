@@ -18,7 +18,7 @@ export interface IStreamConfig {
 }
 
 class StreamService implements IService {
-    private static cachedStream: string = null
+    private static cachedPayload: string = null
     public serviceName: string = "Stream_Service"
     private delay: number
     private stream: Readable
@@ -28,11 +28,11 @@ class StreamService implements IService {
         this.stream = new Readable()
         this.stream._read = () => {
             setTimeout(() => {
-                if (StreamService.cachedStream == null) {
+                if (StreamService.cachedPayload == null) {
                     const payload = this.getPayload()
-                    StreamService.cachedStream = payload
+                    StreamService.cachedPayload = payload
                 }
-                this.stream.push(StreamService.cachedStream)
+                this.stream.push(StreamService.cachedPayload)
             }, this.delay * 1000)  // into Seconds
         }
     }
@@ -41,7 +41,13 @@ class StreamService implements IService {
         return this.stream
     }
 
+    public endStream() {
+        logger.verbose({message: "Closing Stream", category: this.serviceName})
+        this.stream.destroy()
+    }
+
     private getPayload(): string {
+        logger.verbose({message: "Reading file payload.txt", category: this.serviceName})
         return fs.readFileSync(path.join(__dirname, "..", "payload", "payload.txt"), "utf8").toString()
     }
 }

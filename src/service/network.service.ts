@@ -36,12 +36,6 @@ class NetworkService implements IService {
     public serviceName: string = "Network_Service"
     public static request(payload: IRequestPayload): Promise<IResponsePayload> {
         return new Promise<IResponsePayload>((resolve, reject) => {
-            logger.verbose({message: "Attacking Endpoint", category: "Network_Service",
-                            data: {
-                                url: payload.url,
-                                method: payload.method,
-                                headers: payload.headers,
-                            }})
             request({
                 method: payload.method,
                 uri: payload.url,
@@ -52,11 +46,8 @@ class NetworkService implements IService {
               },
             (error, response, body) => {
                 if (error) {
-                  console.error('upload failed:', error);
-                  return reject()
+                  return reject({code: response.statusCode, err: error})
                 }
-                console.log('Upload successful!  Server responded with:', body);
-                console.log(response)
                 return resolve({status: response.statusCode, message: body})
               })
         })
@@ -65,7 +56,7 @@ class NetworkService implements IService {
         return new Promise<IResponsePayload>((resolve, reject) => {
             tr.request("https://api.ipify.org", (err, res, body) => {
                     if (!err && res.statusCode === 200) {
-                        console.log("Your public (through Tor) IP is: " + body)
+                        // console.log("Your public (through Tor) IP is: " + body)
                         }
             })
             return {}
