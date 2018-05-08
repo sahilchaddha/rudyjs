@@ -1,9 +1,9 @@
 //
 //  gulpfile.js
-//  Tribe-cms
+//  RUDY
 //
 //  Created by Sahil Chaddha on 07/05/2018.
-//  Copyright © 2018 Tribe-CMS.tv. All rights reserved.
+//  Copyright © 2018 RUDY. All rights reserved.
 //
 
 var gulp = require('gulp')

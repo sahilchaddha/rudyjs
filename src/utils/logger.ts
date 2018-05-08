@@ -1,9 +1,9 @@
 //
 //  logger.ts
-//  Tribe-cms
+//  RUDY
 //
 //  Created by Sahil Chaddha on 07/05/2018.
-//  Copyright © 2018 Tribe-CMS.tv. All rights reserved.
+//  Copyright © 2018 RUDY. All rights reserved.
 //
 
 import chalk from "chalk"
@@ -26,14 +26,10 @@ export enum LogLevel {
 }
 
 class Logger {
-    private logLevel: LogLevel
-
-    constructor() {
-        this.logLevel = LogLevel.INFO
-    }
+    public static logLevel: LogLevel = LogLevel.INFO
 
     public setLogLevel(level: LogLevel) {
-        this.logLevel = level
+        Logger.logLevel = level
         this.verbose({message: "Logger set to Verbose", category: "Logger"})
     }
 
@@ -41,7 +37,7 @@ class Logger {
         this.logMessage(error(this.getLogMessage(params, LogLevel.ERROR)), params)
     }
     public verbose(params: ILoggerParams) {
-        if (this.logLevel === LogLevel.VERBOSE) {
+        if (Logger.logLevel === LogLevel.VERBOSE) {
             this.logMessage(verbose(this.getLogMessage(params, LogLevel.VERBOSE)), params)
         }
     }
