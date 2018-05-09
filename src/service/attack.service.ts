@@ -43,7 +43,7 @@ class AttackService implements IService {
                                 data: this.streamService.getRandomReadStream()})
         .then((resPayload: IResponsePayload) => {
             logger.info({message: "Request Succeeded. RUDY attack failed attackId : " + self.config.attackId,
-                         category: this.serviceName})
+                         category: this.serviceName, data: resPayload})
             self.streamService.endStream()
         })
         .catch((err) => {
