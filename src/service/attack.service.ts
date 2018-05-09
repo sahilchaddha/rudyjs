@@ -1,9 +1,9 @@
 //
 //  attack.service.ts
-//  Tribe-cms
+//  R-U-D-Y
 //
 //  Created by Sahil Chaddha on 09/05/2018.
-//  Copyright © 2018 Tribe-CMS.tv. All rights reserved.
+//  Copyright © 2018 R-U-D-Y. All rights reserved.
 //
 /* tslint:disable object-literal-sort-keys object-literal-key-quotes no-this-assignment */
 import IService from "./service"

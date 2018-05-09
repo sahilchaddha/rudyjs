@@ -1,9 +1,9 @@
 //
 //  createRandomString.script.ts
-//  Tribe-cms
+//  R-U-D-Y
 //
 //  Created by Sahil Chaddha on 08/05/2018.
-//  Copyright © 2018 Tribe-CMS.tv. All rights reserved.
+//  Copyright © 2018 R-U-D-Y. All rights reserved.
 //
 /* tslint:disable curly object-literal-sort-keys */
 
