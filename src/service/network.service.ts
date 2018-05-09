@@ -24,6 +24,7 @@ export interface IRequestPayload {
     method: HTTPMethod
     headers?: request.Headers
     data?: any
+    shouldUseTor: boolean
 }
 
 export interface IResponsePayload {
@@ -32,9 +33,24 @@ export interface IResponsePayload {
     data?: any
 }
 
+export interface ITorConfig {
+    url: string
+    port: number
+}
+
 class NetworkService implements IService {
     public serviceName: string = "Network_Service"
+
+    public static setTorAddress(config: ITorConfig) {
+        tr.setTorAddress(
+            (config.url != null ? config.url : "127.0.0.1"),
+            (config.port != null ? config.port : 9050))
+    }
+
     public static request(payload: IRequestPayload): Promise<IResponsePayload> {
+        if (payload.shouldUseTor) {
+            return NetworkService.torRequest(payload)
+        }
         return new Promise<IResponsePayload>((resolve, reject) => {
             request({
                 method: payload.method,
@@ -52,14 +68,22 @@ class NetworkService implements IService {
               })
         })
     }
-    public static torRequest(payload: IRequestPayload): Promise<IResponsePayload> {
+    private static torRequest(payload: IRequestPayload): Promise<IResponsePayload> {
         return new Promise<IResponsePayload>((resolve, reject) => {
-            tr.request("https://api.ipify.org", (err, res, body) => {
-                    if (!err && res.statusCode === 200) {
-                        // console.log("Your public (through Tor) IP is: " + body)
-                        }
-            })
-            return {}
+            tr.request({
+                method: payload.method,
+                uri: payload.url,
+                headers: payload.headers,
+                formData: {
+                    file: payload.data,
+                },
+              },
+            (error, response, body) => {
+                if (error) {
+                  return reject({code: 404, err: error})
+                }
+                return resolve({status: response.statusCode, message: body})
+              })
         })
     }
 }

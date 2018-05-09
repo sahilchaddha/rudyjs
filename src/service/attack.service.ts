@@ -40,7 +40,7 @@ class AttackService implements IService {
         const self = this
 
         NetworkService.request({url: this.config.target, method: this.config.method, headers: this.getHeaders(),
-                                data: this.streamService.getRandomReadStream()})
+                                data: this.streamService.getRandomReadStream(), shouldUseTor: this.config.shouldUseTor})
         .then((resPayload: IResponsePayload) => {
             logger.info({message: "Request Succeeded. RUDY attack failed attackId : " + self.config.attackId,
                          category: this.serviceName, data: resPayload})

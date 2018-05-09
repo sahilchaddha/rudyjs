@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node dist/cli.js",
     "startTs": "node_modules/.bin/ts-node --project ./tsconfig.json src/cli.ts",
-    "build": "npm run clean && node_modules/.bin/tsc -p .",
+    "build": "npm run clean && node_modules/.bin/tsc -p . && node_modules/.bin/gulp deploy",
     "clean": "node_modules/.bin/gulp clean",
     "lint": "node_modules/.bin/tslint --project .",
     "test": "node_modules/.bin/mocha --recursive src/test --timeout 10000 --exit",
