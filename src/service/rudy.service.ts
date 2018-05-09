@@ -42,7 +42,6 @@ class RudyService implements IService {
     }
 
     public attack() {
-        logger.info({message: "Starting Attack at " + this.config.target, category: this.serviceName})
         for (var i = 0; i < this.config.maxConnections; i++) {
             const attackService = new AttackService({target: this.config.target, method: this.config.method,
                                                      packet_len: this.config.packet_len, delay: this.config.delay,
@@ -50,6 +49,10 @@ class RudyService implements IService {
             attackService.attack()
             this.attacks.push(attackService)
         }
+
+        logger.info({message: "Attack Started at " + this.config.target + " With Workers : " +
+                     this.config.maxConnections,
+                     category: this.serviceName})
     }
 
     private mapConfig(config: IRudyConfig) {
@@ -58,9 +61,6 @@ class RudyService implements IService {
                 this.config[key] = config[key]
             }
         })
-
-        logger.verbose({message: "Updated Configuration with new Settings.",
-                        category: this.serviceName, data: this.config})
     }
 }
 

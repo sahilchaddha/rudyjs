@@ -37,9 +37,6 @@ class AttackService implements IService {
         this.streamService = new StreamService({delay: this.config.delay})
     }
     public attack() {
-        logger.verbose({message: "Attacking Endpoint attackId : " + this.config.attackId, category: "Network_Service",
-                        data: this.config})
-
         const self = this
 
         NetworkService.request({url: this.config.target, method: this.config.method, headers: this.getHeaders(),

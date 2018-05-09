@@ -46,7 +46,7 @@ class NetworkService implements IService {
               },
             (error, response, body) => {
                 if (error) {
-                  return reject({code: response.statusCode, err: error})
+                  return reject({code: 404, err: error})
                 }
                 return resolve({status: response.statusCode, message: body})
               })
