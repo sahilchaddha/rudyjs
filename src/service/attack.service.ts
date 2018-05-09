@@ -44,6 +44,7 @@ class AttackService implements IService {
         .then((resPayload: IResponsePayload) => {
             logger.info({message: "Request Succeeded. RUDY attack failed attackId : " + self.config.attackId,
                          category: this.serviceName})
+            self.streamService.endStream()
         })
         .catch((err) => {
             logger.error({message: err.code + " :: Error Occured attackId : " + self.config.attackId,
