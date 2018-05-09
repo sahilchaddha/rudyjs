@@ -14,4 +14,10 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
+gulp.task('deploy', function () {
+    return gulp.src(['./src/payload/*',
+                        ])
+    .pipe(gulp.dest('./dist/payload/'))
+});
+
 gulp.task('default', ['clean'])

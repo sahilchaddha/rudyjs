@@ -13,6 +13,7 @@ import { TargetNotFound, IError } from "./models/error.model"
 import RudyService from "./service/rudy.service"
 import logger, { LogLevel } from "./utils/logger"
 import GeneratePayload from "./scripts/generatePayload"
+import NetworkService, { ITorConfig } from "./service/network.service"
 const logCategory: string = "RUDY_CLI"
 /* tslint:disable object-literal-sort-keys max-line-length */
 
@@ -24,9 +25,11 @@ program
     .option("-l, --length <number>", "Length of the TCP Packet (Default : Large Number)")
     .option("-n, --numberOfConnections <number>", "Amount of clients that are going to contact the server. (Default: 500)")
     .option("-m, --method <string>", "HTTP Request Method. (Default: POST)")
-    .option("-p, --useTor", "Use Tor Proxy. (Default: false)")
     .option("-d, --delay <number>", "Wait <seconds> before sending another TCP Packet. (Default: 2)")
     .option("-v, --verbose", "Enable Verbose Logs (Default: false)")
+    .option("-p, --useTor", "Use Tor Proxy. (Default: false)")
+    .option("-u, --torUrl <string>", "Custom Tor Server Url (Default: 127.0.0.1)")
+    .option("-o, --torPort <number>", "Custom Tor Server Port Number (Default: 9050)")
 
 program
 .command("generatePayload <charCount>")
@@ -49,6 +52,10 @@ ASCIIBanner.showInfo()
 
     if (program.verbose) {
         logger.setLogLevel(LogLevel.VERBOSE)
+    }
+
+    if (program.torUrl != null || program.torPort != null) {
+        NetworkService.setTorAddress({url: program.torUrl, port: program.torPort})
     }
 
     const config: Rudy.IRudyConfig = {
