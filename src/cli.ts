@@ -29,9 +29,9 @@ program
     .option("-v, --verbose", "Enable Verbose Logs (Default: false)")
 
 program
-.command("generatePayload <numberOfLines>")
-.action((numberOfLines, cmd) => {
-    const script = new GeneratePayload(numberOfLines).run()
+.command("generatePayload <charCount>")
+.action((charCount, cmd) => {
+    const script = new GeneratePayload(charCount).run()
 })
 
 program

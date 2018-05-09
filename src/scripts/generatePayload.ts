@@ -13,14 +13,15 @@ import IScriptType from "./script"
 import logger from "../utils/logger"
 
 const payloadFileLocation = path.join(__dirname, "..", "payload", "payload.txt")
+const charArray: string[] = ["R", "U", "D", "Y"]
 
 class GeneratePayload implements IScriptType {
 
-    private numberOfLines: number
+    private charCount: number
     private stream: fs.WriteStream
 
-    constructor(numberOfLines: number) {
-        this.numberOfLines = numberOfLines
+    constructor(charCount: number) {
+        this.charCount = charCount
     }
 
     public run(): void {
@@ -33,20 +34,19 @@ class GeneratePayload implements IScriptType {
     private generatePayload() {
         this.stream = fs.createWriteStream(payloadFileLocation)
 
-        for (var i = 0; i < this.numberOfLines; i++) {
-            this.stream.write(this.getRandomString() + "\n")
+        for (var i = 0; i < this.charCount; i++) {
+            this.stream.write(this.getRandomString())
         }
-        logger.info({message: "Payload Updated with number of lines : " + this.numberOfLines,
+        logger.info({message: "Payload Injected with characters : " + this.charCount,
                      category: "GENERATE_PAYLOAD"})
         this.stream.end()
     }
 
     private getRandomString(): string {
-        var randomString: string = ""
-        for (var i = 0; i < 100; i++) {
-            randomString = randomString + " RUDY "
-        }
-        return randomString
+        const low: number = 0
+        const high: number = 4
+        const randomNumber: number = Math.floor(Math.random() * (high - low) + low)
+        return charArray[randomNumber]
     }
 }
 

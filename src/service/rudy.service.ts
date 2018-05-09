@@ -25,7 +25,7 @@ export interface IRudyConfig {
 const defaultConfig: IRudyConfig = {
     target: "http://localhost:80/",
     method: HTTPMethod.POST,
-    packet_len: 1024 * 1024 * 1024,
+    packet_len: 1 * 1024 * 1024, // 1 MB
     maxConnections: 5,
     delay: 2,
     shouldUseTor: false,
