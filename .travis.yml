@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "8"
+install:
+  - npm install
+script:
+  - npm run deploy
+notifications:
+  slack: 4iota:P76C6qX8Ko2ev68l9uu4L6v6
