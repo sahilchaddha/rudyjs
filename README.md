@@ -1,6 +1,7 @@
 # rudyjs ( R-U-DEAD-YET ? )
 ## RUDY DDOS Attack Implementation on Node.js
-
+### Scalable Lightweight R-U-D-Y DDOS Attack using Tor Proxy
+### Difficult to detect low-and-slow DDOS Attack 
 
 [![NPM](https://nodei.co/npm/rudyjs.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/rudyjs/)
 
@@ -13,14 +14,31 @@
 [![GitHub release](https://img.shields.io/github/release/sahilchaddha/rudyjs.svg)](https://github.com/sahilchaddha/rudyjs)
 [![npm](https://img.shields.io/npm/dm/rudyjs.svg)](https://www.npmjs.com/package/rudyjs)
 
+### What is a R.U.D.Y. attack?
+‘R U Dead Yet?’ or R.U.D.Y. is a denial-of-service attack tool that aims to keep a web server tied up by submitting form data at an absurdly slow pace. A R.U.D.Y. exploit is categorized as a low-and-slow attack, since it focuses on creating a few drawn-out requests rather than overwhelming a server with a high volume of quick requests. A successful R.U.D.Y. attack will result in the victim’s web server becoming unavailable to legitimate traffic.
 
-### Powerful Lightweight RUDY DDOS Attack using Tor Proxy
+### How does a R.U.D.Y. attack work ?
+The tool breaks down the payload into packets as small as 1 byte each, sending these packets to the server at randomized intervals of around 10 seconds each.
+The tool continues submitting data indefinitely. The web server will keep the connection open to accept the packets, since the `behavior of the attack is similar to that of a user with a slow connection speed submitting form data`. Meanwhile the web server’s capacity to handle legitimate traffic is impaired.
 
-What is RUDY Attack ?
+The R.U.D.Y. tool can simultaneously create several of these slow requests all targeting one web server. Since web servers can only handle so many connections at once, it’s possible for the R.U.D.Y. attack to tie up all available connections, meaning any legitimate users trying to access the web server will be denied service. Even a robust web server with a high number of connections available can be taken down by R.U.D.Y. via a network of computers conducting attacks simultaneously, this is known as a Distributed Denial-of-Service (DDoS) attack.
 
-new-relic fails
+*HTTP headers are key/value pairs that are sent with any HTTP request or response, and they provide vital information such as the HTTP version being used, what language the content is in, how much content is being delivered, etc.
 
-**NOTE**: For Educational/Penetration Testing Purposes Only (Mitigating RUDY DDos Attacks)
+### What makes R.U.D.Y difficult to detect ?
+Because slow and low attacks are carried out much more subtly than traditional denial-of-service attacks, they can be hard to detect, but protections can be put in place to prevent them.
+
+### How to stop R.U.D.Y. attacks
+One such prevention measure is to set stricter connection timeout intervals on a web server, meaning that the slowest connections will be severed. This solution comes with a side effect: legitimate users with slow Internet connections could be denied service by the server. Alternately a reverse-proxy solution, such as Cloudflare’s DDoS protection, can filter out low-and-slow attack traffic like R.U.D.Y. attacks, without disconnecting legitimate users.
+ 
+[Source](https://www.cloudflare.com/learning/ddos/ddos-attack-tools/r-u-dead-yet-rudy/)
+
+
+**Quick Disclaimer**: This information is for educational purposes only and should not be used with malicious intent. Also, the following guide has been tested only for Mac and Ubuntu, minor differences might exist on other OS. For Educational/Penetration Testing Purposes Only (Mitigating RUDY DDos Attacks) 
+
+### Todo :
+
+- [ ] Crawl HTML Page to automate attack vulnerable HTML Forms.
 
 ## Installation :
 
@@ -117,6 +135,15 @@ Reading Docker Logs :
 ```
 
 Docker Swarm : Automating Monitoring of multiple Docker images : 
+
+Setting up Docker Swarm : 
+
+```
+ $ docker swarm init
+ $ docker swarm join --token <Token From Init Command>
+```
+
+Creating and Scaling a Service :
 
 ```
  $ docker build -t sahilchaddha/rudy .  //[Only do this if you made changes to the Dockerfile]
