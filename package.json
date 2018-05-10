@@ -1,5 +1,5 @@
 {
-  "name": "rudy",
+  "name": "rudyjs",
   "version": "1.0.0",
   "description": "R-U-DEAD-YET ?",
   "preferGlobal": true,
@@ -18,10 +18,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sahilchaddha/rudy.git"
+    "url": "git+https://github.com/sahilchaddha/rudyjs.git"
   },
   "keywords": [
     "rudy",
+    "rudyjs",
     "js",
     "typescript",
     "node"
@@ -29,9 +30,9 @@
   "author": "Sahil Chaddha",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sahilchaddha/rudy/issues"
+    "url": "https://github.com/sahilchaddha/rudyjs/issues"
   },
-  "homepage": "https://github.com/sahilchaddha/rudy#readme",
+  "homepage": "https://github.com/sahilchaddha/rudyjs#readme",
   "dependencies": {
     "chalk": "^2.4.1",
     "commander": "^2.15.1",
