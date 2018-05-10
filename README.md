@@ -164,8 +164,8 @@ IP Address will be anonymous (tor exit node)
 Its preferable to use tor or ssh tunnel
 
 ### Quick Example :
-<br>
-<img src="http://www.sahilchaddha.com/public/rudy.gif">
+
+![Example](http://www.sahilchaddha.com/public/rudy.gif)
 
 ### Developer : 
 
