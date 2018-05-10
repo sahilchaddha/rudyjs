@@ -1,9 +1,10 @@
 language: node_js
 node_js:
-  - "8"
+- '8'
 install:
-  - npm install
+- npm install
 script:
-  - npm run deploy
+- npm run deploy
 notifications:
-  slack: 4iota:P76C6qX8Ko2ev68l9uu4L6v6
+  slack:
+    secure: VmQIOv68abUTVbP9xqIMRHT9y7n6HLpx7wtIM3CDhAmztxiqg4A2i7uiGT53Bp0WFQyS4LhkYL89EgKGMkFZY5TuEfv39598erv3e5idsuI8xas1qLdwRInh1Qt4ClkBJiiHNMDwnfIqjPXgBeBRhdWsgBQc4TF9HaErPeSTn06m+87RRRNn8mTHyv/9kZurd230zNG6E1rf2gsnkeeWUnoHhVQGUc5Ua0Jd7QXgQ4aB/UCVwDOJscQ1ZaRc3xbraLifC/xh4bUjBmB8KAVYnXzfiG4gcyn3zr4RlUiFR90BkY8AIEBHn5IiFnMDXdVE+16RwRiRDBfUNNFfqSw0Ms3+tCg+yEJnkB1854OdU5RgpW/gtPXiwTPNXFG8G8mT5QIZ7OCp/Jih/rFzOi9MAkBPf6dyoh9iwpBQ6vx8eQ4CLnn4hdE0FSS16WM1kVb5t+jEqH0/xX+eiNoJADKzYQwI81+3wSzp9IJ1C921RwoO7dRExHcS5CYHbiqD8rOMW24OwTek0qQ8tZOoAEJXKYBpjiNS70B+Kk2Q8q7h2ccbEW2KdftlfM/M+/dVxQgH535nZesMfx4ihVP9SrkdHwFLll455h9bNV7zv0bkBSWcBIOo5/IBUEUtczwtBTSy5j0IhcGWIsMwqk+4KEFfnFRN+bqXerH3InodoBPblsY=
