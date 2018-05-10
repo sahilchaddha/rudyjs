@@ -165,7 +165,7 @@ Its preferable to use tor or ssh tunnel
 
 ### Quick Example :
 
-![Example](http://www.sahilchaddha.com/public/rudy.gif)
+![Example](https://raw.githubusercontent.com/sahilchaddha/rudyjs/master/rudy.gif)
 
 ### Developer : 
 
