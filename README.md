@@ -38,7 +38,7 @@ One such prevention measure is to set stricter connection timeout intervals on a
 
 ### Todo :
 
-- [ ] Crawl HTML Page to attack vulnerable HTML Forms.
+- [ ] Crawl HTML Page to automate attack vulnerable HTML Forms.
 
 ## Installation :
 
