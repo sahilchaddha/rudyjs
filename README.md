@@ -9,3 +9,25 @@
 
 
 ### Powerful Lightweight RUDY DDOS Attack using Tor Proxy
+
+LICENSE & other docs
+
+npm install -g
+
+travis
+circle
+semaphor
+codefactor
+
+npm release
+github release
+issues
+
+
+add docker docs
+
+publish to nnpm
+test global
+
+update docs
+one more publish
