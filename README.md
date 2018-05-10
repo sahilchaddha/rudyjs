@@ -136,6 +136,31 @@ IP Address will be anonymous (tor exit node)
 
 Its preferable to use tor or ssh tunnel
 
+### Developer : 
+
+### Installation : 
+
+```
+ $ git clone https://github.com/sahilchaddha/rudyjs.git && cd rudyjs
+ $ npm install
+ $ npm run build
+```
+
+### Starting : 
+
+```
+ $ npm run start // For Dist
+ $ npm run startTs // For src
+```
+
+### Contribution :
+
+Please run lint before creating a PR 
+
+```
+    $ npm run lint
+```
+
 ### Troubleshooting : 
 
 #### 413 Payload too large : 
