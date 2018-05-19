@@ -33,7 +33,7 @@ class StreamService implements IService {
                     StreamService.cachedPayload = payload
                 }
                 this.stream.push(StreamService.cachedPayload)
-            }, this.delay * 1000)  // into Seconds
+            }, this.getRandomNumber() * 1000)  // into Seconds
         }
     }
 
@@ -49,6 +49,10 @@ class StreamService implements IService {
     private getPayload(): string {
         logger.verbose({message: "Reading file payload.txt", category: this.serviceName})
         return fs.readFileSync(path.join(__dirname, "..", "payload", "payload.txt"), "utf8").toString()
+    }
+
+    private getRandomNumber(): number {
+        return Math.floor((Math.random() * this.delay) + 1)
     }
 }
 
